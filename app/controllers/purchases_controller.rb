@@ -3,15 +3,17 @@ class PurchasesController < ApplicationController
 
   # GET /purchases or /purchases.json
   def index
-    @purchases = Purchase.all
-  end
+    @purchases = Group.find(params[:group_id]).purchases
+    @total_amount = 0
 
-  # GET /purchases/1 or /purchases/1.json
-  def show
+    @purchases.each do |purchase|
+      @total_amount += purchase.amount
+    end
   end
 
   # GET /purchases/new
   def new
+    @group = Group.find(params[:group_id])
     @purchase = Purchase.new
   end
 
@@ -22,10 +24,13 @@ class PurchasesController < ApplicationController
   # POST /purchases or /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
+    @group = Group.find(params[:group_id])
+    @purchase.groups << @group
+    @purchase.author = current_user
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to purchase_url(@purchase), notice: "Purchase was successfully created." }
+        format.html { redirect_to group_purchases_path, notice: "Purchase was successfully created." }
         format.json { render :show, status: :created, location: @purchase }
       else
         format.html { render :new, status: :unprocessable_entity }
