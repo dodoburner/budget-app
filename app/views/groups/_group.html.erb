@@ -1,0 +1,12 @@
+<div id="<%= dom_id group %>">
+  <p>
+    <strong>Name:</strong>
+    <%= group.name %>
+  </p>
+
+  <p>
+    <strong>Icon:</strong>
+    <%= link_to group.icon.filename, group.icon if group.icon.attached? %>
+  </p>
+
+</div>
