@@ -1,14 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<p class="m-0" style="color: green"><%= notice %></p>
 
-<h1>Groups</h1>
+<div class="vh-100 d-flex flex-column bg-secondary bg-opacity-10">
+  <div class="navbar d-flex align-items-center justify-content-center bg-main">
+    <p class="navbar-brand m-0 text-light">CATEGORIES</p>
+  </div>
 
-<div id="groups">
-  <% @groups.each do |group| %>
-    <%= render group %>
-    <p>
-      <%= link_to "Show this group", group %>
-    </p>
-  <% end %>
+  <div id="groups">
+    <% @groups.each do |group| %>
+      <%= link_to group do %>
+        <%= render group %>
+      <% end %>
+    <% end %>
+  </div>
+
+
+  <div class="w-100 bg-second p-3 mt-auto">
+    <button class="w-100 p-3 btn text-light border-light">
+      <%= link_to "NEW CATEGORY", new_group_path %>
+    </button> 
+  </div>
 </div>
-
-<%= link_to "New group", new_group_path %>

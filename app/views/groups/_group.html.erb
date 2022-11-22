@@ -1,12 +1,15 @@
-<div id="<%= dom_id group %>">
-  <p>
-    <strong>Name:</strong>
-    <%= group.name %>
-  </p>
+<div id="<%= dom_id group %>" class="d-flex p-2 bg-white">
+  <%= image_tag(group.icon, size: "80x80", alt: "Group") %> 
 
-  <p>
-    <strong>Icon:</strong>
-    <%= link_to group.icon.filename, group.icon if group.icon.attached? %>
-  </p>
+  <div class="ms-3">
+    <p>
+      <strong>Category: </strong>
+      <%= group.name %>
+    </p>
 
+    <p>
+      <strong>Total Transactions: </strong>
+      <%= group.purchases.length %>
+    </p>
+  </div>
 </div>
