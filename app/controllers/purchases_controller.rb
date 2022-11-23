@@ -1,5 +1,5 @@
 class PurchasesController < ApplicationController
-  before_action :set_purchase, only: %i[ show edit update destroy ]
+  before_action :set_purchase, only: %i[show edit update destroy]
 
   # GET /purchases or /purchases.json
   def index
@@ -19,22 +19,21 @@ class PurchasesController < ApplicationController
   end
 
   # GET /purchases/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /purchases or /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
-    @groups = Group.where(id: groups_params["groups"])
+    @groups = Group.where(id: groups_params['groups'])
     @purchase.groups << @groups
     @purchase.author = current_user
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to group_purchases_path, notice: "Purchase was successfully created." }
+        format.html { redirect_to group_purchases_path, notice: 'Purchase was successfully created.' }
         format.json { render :new, status: :created, location: @purchase }
       else
-        format.html { redirect_to new_group_purchase_path, alert: "Failed to create purchase." }
+        format.html { redirect_to new_group_purchase_path, alert: 'Failed to create purchase.' }
         format.json { render json: @purchase.errors, status: :unprocessable_entity }
       end
     end
@@ -58,23 +57,24 @@ class PurchasesController < ApplicationController
     @purchase.destroy
 
     respond_to do |format|
-      format.html { redirect_to group_purchases_path, notice: "Purchase was successfully destroyed." }
+      format.html { redirect_to group_purchases_path, notice: 'Purchase was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_purchase
-      @purchase = Purchase.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def purchase_params
-      params.require(:purchase).permit(:name, :amount)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_purchase
+    @purchase = Purchase.find(params[:id])
+  end
 
-    def groups_params
-      params.require(:purchase).permit(groups: [])
-    end
+  # Only allow a list of trusted parameters through.
+  def purchase_params
+    params.require(:purchase).permit(:name, :amount)
+  end
+
+  def groups_params
+    params.require(:purchase).permit(groups: [])
+  end
 end

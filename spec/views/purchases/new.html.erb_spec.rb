@@ -1,21 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe "purchases/new", type: :view do
+RSpec.describe 'purchases/new', type: :view do
   before(:each) do
     assign(:purchase, Purchase.new(
-      name: "MyString",
-      amount: 1
-    ))
+                        name: 'MyString',
+                        amount: 1
+                      ))
   end
 
-  it "renders new purchase form" do
+  it 'renders new purchase form' do
     render
 
-    assert_select "form[action=?][method=?]", purchases_path, "post" do
+    assert_select 'form[action=?][method=?]', purchases_path, 'post' do
+      assert_select 'input[name=?]', 'purchase[name]'
 
-      assert_select "input[name=?]", "purchase[name]"
-
-      assert_select "input[name=?]", "purchase[amount]"
+      assert_select 'input[name=?]', 'purchase[amount]'
     end
   end
 end
