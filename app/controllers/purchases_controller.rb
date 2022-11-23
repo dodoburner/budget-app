@@ -32,26 +32,26 @@ class PurchasesController < ApplicationController
     respond_to do |format|
       if @purchase.save
         format.html { redirect_to group_purchases_path, notice: "Purchase was successfully created." }
-        format.json { render :show, status: :created, location: @purchase }
+        format.json { render :new, status: :created, location: @purchase }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_group_purchase_path, alert: "Failed to create purchase." }
         format.json { render json: @purchase.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /purchases/1 or /purchases/1.json
-  def update
-    respond_to do |format|
-      if @purchase.update(purchase_params)
-        format.html { redirect_to purchase_url(@purchase), notice: "Purchase was successfully updated." }
-        format.json { render :show, status: :ok, location: @purchase }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @purchase.update(purchase_params)
+  #       format.html { redirect_to purchase_url(@purchase), notice: "Purchase was successfully updated." }
+  #       format.json { render :show, status: :ok, location: @purchase }
+  #     else
+  #       format.html { render :edit, status: :unprocessable_entity }
+  #       format.json { render json: @purchase.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /purchases/1 or /purchases/1.json
   def destroy
