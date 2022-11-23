@@ -14,7 +14,7 @@ class PurchasesController < ApplicationController
   # GET /purchases/new
   def new
     @group = Group.find(params[:group_id])
-    @groups = Group.all
+    @groups = Group.where(user_id: current_user.id)
     @purchase = Purchase.new
   end
 

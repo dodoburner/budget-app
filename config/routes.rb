@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   resources :groups, except: [:show] do
     resources :purchases, except: [:show]
   end
-  root "users#index"
   devise_for :users, path: ''
+
+  authenticated :user do
+    root "groups#index", as: :groups_path
+  end
+  root "users#index"  
 end
