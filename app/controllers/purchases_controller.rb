@@ -14,6 +14,7 @@ class PurchasesController < ApplicationController
   # GET /purchases/new
   def new
     @group = Group.find(params[:group_id])
+    @groups = Group.all
     @purchase = Purchase.new
   end
 
@@ -24,8 +25,8 @@ class PurchasesController < ApplicationController
   # POST /purchases or /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
-    @group = Group.find(params[:group_id])
-    @purchase.groups << @group
+    @groups = Group.where(id: groups_params["groups"])
+    @purchase.groups << @groups
     @purchase.author = current_user
 
     respond_to do |format|
@@ -57,7 +58,7 @@ class PurchasesController < ApplicationController
     @purchase.destroy
 
     respond_to do |format|
-      format.html { redirect_to purchases_url, notice: "Purchase was successfully destroyed." }
+      format.html { redirect_to group_purchases_path, notice: "Purchase was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -71,5 +72,9 @@ class PurchasesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def purchase_params
       params.require(:purchase).permit(:name, :amount)
+    end
+
+    def groups_params
+      params.require(:purchase).permit(groups: [])
     end
 end

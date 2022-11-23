@@ -28,6 +28,17 @@
     class: "w-100 p-2 mt-3 mb-1", placeholder: "Amount $"
   %>
 
+  <div class="p-2 mt-3 bg-white">
+    <p> Categories: </p>
+    <% @groups.each do |group| %>
+      <div class="p-2 d-flex align-items-center">
+        <%= form.label group.name, class: "w-25" %>
+        <%= form.check_box :groups, { multiple: true }, group.id, nil %>
+      </div>
+    <% end %>
+  </div>
+
+
   <div class="w-100 bg-second p-3 mt-auto">
     <%= form.submit "Create Purchase", class: "w-100 p-3 btn text-light border-light" %>
   </div>
