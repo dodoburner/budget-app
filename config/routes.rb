@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :users, only: [:index]
-  resources :groups, except: [:show] do
-    resources :purchases, except: [:show]
+  resources :groups, except: [:show, :update, :edit] do
+    resources :purchases, except: [:show, :update, :edit]
   end
   devise_for :users, path: ''
 
