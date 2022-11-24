@@ -8,11 +8,11 @@ RSpec.describe '/groups', type: :request do
 
   let(:valid_attributes) do
     file = fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png'), 'image/png')
-    {name: 'apple', user: User.first, icon: file}
+    {name: 'food', user: User.first, icon: file}
   end
 
   let(:invalid_attributes) do
-    {name: 'book'}
+    {name: 'books'}
   end
 
   describe 'GET /index' do

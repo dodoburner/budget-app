@@ -16,41 +16,36 @@ RSpec.describe '/purchases', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Purchase. As you add validations to Purchase, be sure to
   # adjust the attributes here as well.
+  before(:example) do
+    @user = User.create!(email: 'mail@gmail.com', name: 'pendo', password: '111111', password_confirmation:'111111')
+    file = fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png'), 'image/png')
+    @group = Group.create!(name: 'food', user: User.first, icon: file)
+    sign_in @user
+  end
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    { name: 'apple', amount: 50, author: @user, groups: [@group] }
+  end
+
+  let(:post_attributes) do
+    { name: 'apple', amount: 50, author: @user, groups: [@group.id] }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    { name: 'orange', amount: 50 }
   end
 
   describe 'GET /index' do
     it 'renders a successful response' do
       Purchase.create! valid_attributes
-      get purchases_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      purchase = Purchase.create! valid_attributes
-      get purchase_url(purchase)
+      get group_purchases_url(@group)
       expect(response).to be_successful
     end
   end
 
   describe 'GET /new' do
     it 'renders a successful response' do
-      get new_purchase_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'GET /edit' do
-    it 'renders a successful response' do
-      purchase = Purchase.create! valid_attributes
-      get edit_purchase_url(purchase)
+      get new_group_purchase_url(@group)
       expect(response).to be_successful
     end
   end
@@ -59,56 +54,26 @@ RSpec.describe '/purchases', type: :request do
     context 'with valid parameters' do
       it 'creates a new Purchase' do
         expect do
-          post purchases_url, params: { purchase: valid_attributes }
+          post group_purchases_url(@group), params: { purchase: post_attributes }
         end.to change(Purchase, :count).by(1)
       end
 
       it 'redirects to the created purchase' do
-        post purchases_url, params: { purchase: valid_attributes }
-        expect(response).to redirect_to(purchase_url(Purchase.last))
+        post group_purchases_url(@group), params: { purchase: post_attributes }
+        expect(response).to redirect_to(group_purchases_url)
       end
     end
 
     context 'with invalid parameters' do
       it 'does not create a new Purchase' do
         expect do
-          post purchases_url, params: { purchase: invalid_attributes }
+          post group_purchases_url(@group), params: { purchase: invalid_attributes }
         end.to change(Purchase, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post purchases_url, params: { purchase: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-    end
-  end
-
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested purchase' do
-        purchase = Purchase.create! valid_attributes
-        patch purchase_url(purchase), params: { purchase: new_attributes }
-        purchase.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'redirects to the purchase' do
-        purchase = Purchase.create! valid_attributes
-        patch purchase_url(purchase), params: { purchase: new_attributes }
-        purchase.reload
-        expect(response).to redirect_to(purchase_url(purchase))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        purchase = Purchase.create! valid_attributes
-        patch purchase_url(purchase), params: { purchase: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        post group_purchases_url(@group), params: { purchase: invalid_attributes }
+        expect(response).to redirect_to(new_group_purchase_url(@group))
       end
     end
   end
@@ -117,14 +82,14 @@ RSpec.describe '/purchases', type: :request do
     it 'destroys the requested purchase' do
       purchase = Purchase.create! valid_attributes
       expect do
-        delete purchase_url(purchase)
+        delete group_purchase_url(@group, purchase)
       end.to change(Purchase, :count).by(-1)
     end
 
     it 'redirects to the purchases list' do
       purchase = Purchase.create! valid_attributes
-      delete purchase_url(purchase)
-      expect(response).to redirect_to(purchases_url)
+      delete group_purchase_url(@group, purchase)
+      expect(response).to redirect_to(group_purchases_url(@group))
     end
   end
 end
