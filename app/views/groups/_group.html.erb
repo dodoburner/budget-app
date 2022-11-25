@@ -1,0 +1,15 @@
+<div id="<%= dom_id group %>" class="d-flex p-2 bg-white">
+  <%= image_tag(group.icon, size: "80x80", alt: "Group") %> 
+
+  <div class="ms-3">
+    <p>
+      Category: 
+      <strong><%= group.name %></strong>
+    </p>
+
+    <p>
+      Total Transactions:
+      <strong><%= group.purchases.length %></strong>
+    </p>
+  </div>
+</div>

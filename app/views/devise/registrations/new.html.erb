@@ -1,0 +1,32 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="navbar d-flex align-items-center bg-main">
+    <%= link_to '/', class: "btn" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left text-light" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg>
+    <% end %>
+    <p class="navbar-brand m-0 text-light">REGISTER</p>
+    <div class="actions">
+      <%= f.submit "Next", class:"btn text-light" %>
+    </div>
+  </div>
+
+
+  <%= f.text_field :name, autofocus: true, autocomplete: "name", 
+    class: "w-100 p-2 mt-3 mb-1", placeholder: "Name"
+  %>
+
+  <%= f.email_field :email, autofocus: true, autocomplete: "email",
+    class: "w-100 p-2 mb-1", placeholder: "Email"
+  %>
+
+  <%= f.password_field :password, autocomplete: "new-password",
+    class: "w-100 p-2 mb-1", placeholder: "Password"
+  %>
+
+
+  <%= f.password_field :password_confirmation, autocomplete: "new-password",
+    class: "w-100 p-2 mb-1", placeholder: "Password Confirmation"
+  %>
+<% end %>

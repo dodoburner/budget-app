@@ -7,10 +7,16 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "/javascript/application.js", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
+    <% if notice %>
+      <p class="alert alert-success m-0"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger m-0"><%= alert %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
