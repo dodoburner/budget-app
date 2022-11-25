@@ -1,5 +1,5 @@
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+// @import "bootstrap/scss/bootstrap";
+// @import "bootstrap-icons/font/bootstrap-icons";
 
 // @font-face {
 //   font-family: 'ProximaNova';
@@ -9,6 +9,21 @@
 // * {
 //   font-family: 'ProximaNova', sans-serif !important;
 // }
+
+@import "../../../node_modules/bootstrap/scss/_functions";
+@import "../../../node_modules/bootstrap/scss/_variables";
+
+$custom-theme-colors: (
+  "main": #3778c2,
+  "second": #5fb523,
+  "text": #434b54
+);
+
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+$body-color: #434b54;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
 
 a {
   text-decoration: none;
