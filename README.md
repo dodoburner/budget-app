@@ -18,6 +18,10 @@ This is a RoR mobile app created for tracking your expenses. It allows the user 
 
 - https://rails-o4f2.onrender.com/
 
+## Video Tour
+
+- https://www.loom.com/share/a0c12c98f65a454d98ac7876c3e49e7d
+
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
