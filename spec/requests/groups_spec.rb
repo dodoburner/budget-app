@@ -2,17 +2,17 @@ require 'rails_helper'
 
 RSpec.describe '/groups', type: :request do
   before(:example) do
-    @user = User.create!(email: 'mail@gmail.com', name: 'pendo', password: '111111', password_confirmation:'111111')
+    @user = User.create!(email: 'mail@gmail.com', name: 'pendo', password: '111111', password_confirmation: '111111')
     sign_in @user
   end
 
   let(:valid_attributes) do
     file = fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png'), 'image/png')
-    {name: 'food', user: User.first, icon: file}
+    { name: 'food', user: User.first, icon: file }
   end
 
   let(:invalid_attributes) do
-    {name: 'books'}
+    { name: 'books' }
   end
 
   describe 'GET /index' do

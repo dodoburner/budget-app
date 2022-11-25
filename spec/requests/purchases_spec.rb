@@ -17,7 +17,7 @@ RSpec.describe '/purchases', type: :request do
   # Purchase. As you add validations to Purchase, be sure to
   # adjust the attributes here as well.
   before(:example) do
-    @user = User.create!(email: 'mail@gmail.com', name: 'pendo', password: '111111', password_confirmation:'111111')
+    @user = User.create!(email: 'mail@gmail.com', name: 'pendo', password: '111111', password_confirmation: '111111')
     file = fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png'), 'image/png')
     @group = Group.create!(name: 'food', user: User.first, icon: file)
     sign_in @user
