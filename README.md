@@ -1,6 +1,10 @@
 # Purchase Tracker
 
-This is a mobile app created for tracking your expenses. 
+This is a RoR mobile app created for tracking your expenses. It allows the user to:
+- register and log in, so that the data is private to them.
+- introduce new transactions associated with a category.
+- see the money spent on each category.
+
 ## Built With
 
 - Ruby on Rails
@@ -9,6 +13,10 @@ This is a mobile app created for tracking your expenses.
 - Devise
 - Rspec
 - Capybara
+
+## Live
+
+- https://rails-o4f2.onrender.com/
 
 ## Getting Started
 
