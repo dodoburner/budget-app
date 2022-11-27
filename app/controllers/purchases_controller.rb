@@ -1,9 +1,10 @@
 class PurchasesController < ApplicationController
   before_action :set_purchase, only: %i[show edit update destroy]
+  before_action :set_group, except: %i[destroy create update]
 
   # GET /purchases or /purchases.json
   def index
-    @purchases = Group.find(params[:group_id]).purchases
+    @purchases = @group.purchases
     @total_amount = 0
 
     @purchases.each do |purchase|
@@ -13,13 +14,14 @@ class PurchasesController < ApplicationController
 
   # GET /purchases/new
   def new
-    @group = Group.find(params[:group_id])
     @groups = Group.where(user_id: current_user.id)
     @purchase = Purchase.new
   end
 
   # GET /purchases/1/edit
-  def edit; end
+  def edit
+    @groups = Group.where(user_id: current_user.id)
+  end
 
   # POST /purchases or /purchases.json
   def create
@@ -40,17 +42,17 @@ class PurchasesController < ApplicationController
   end
 
   # PATCH/PUT /purchases/1 or /purchases/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @purchase.update(purchase_params)
-  #       format.html { redirect_to purchase_url(@purchase), notice: "Purchase was successfully updated." }
-  #       format.json { render :show, status: :ok, location: @purchase }
-  #     else
-  #       format.html { render :edit, status: :unprocessable_entity }
-  #       format.json { render json: @purchase.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    respond_to do |format|
+      if @purchase.update(purchase_params)
+        format.html { redirect_to group_purchases_path, notice: 'Purchase was successfully updated.' }
+        format.json { render :show, status: :ok, location: @purchase }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @purchase.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /purchases/1 or /purchases/1.json
   def destroy
@@ -67,6 +69,11 @@ class PurchasesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_purchase
     @purchase = Purchase.find(params[:id])
+    @group = Group.find(params[:group_id])
+  end
+
+  def set_group
+    @group = Group.find(params[:group_id])
   end
 
   # Only allow a list of trusted parameters through.

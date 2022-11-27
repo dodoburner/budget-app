@@ -1,12 +1,29 @@
-<div id="<%= dom_id purchase %>" class="bg-white p-2 my-2">
-  <p class="m-0">
-    <strong>Name:</strong>
-    <%= purchase.name %>
-  </p>
+<div id="<%= dom_id purchase %>" class="d-flex bg-white p-2 my-2">
+  <div>
+    <p class="m-0">
+      <strong>Name:</strong>
+      <%= purchase.name %>
+    </p>
 
-  <p class="m-0">
-    <strong>Amount:</strong>
-    <%= purchase.amount %>
-  </p>
+    <p class="m-0">
+      <strong>Amount:</strong>
+      <%= purchase.amount %>
+    </p>
+  </div>
 
+  <div class="dropdown ms-auto">
+    <div class="mt-2" data-bs-toggle="dropdown" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+      </svg>
+    </div>
+    <ul class="dropdown-menu">
+      <li class="dropdown-item">
+        <%= link_to 'Edit', edit_group_purchase_path(group, purchase) %>
+      </li>
+      <li class="dropdown-item text-danger">
+        <%= link_to 'Delete', group_purchase_path(group, purchase), data: { turbo_method: :delete } %>
+      </li>
+    </ul>
+  </div>
 </div>

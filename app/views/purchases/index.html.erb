@@ -17,7 +17,7 @@
 
   <div id="purchases">
     <% @purchases.each do |purchase| %>
-      <%= render purchase %>
+      <%= render purchase, group: @group %>
     <% end %>
   </div>
 
