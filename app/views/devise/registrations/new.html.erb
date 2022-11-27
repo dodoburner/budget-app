@@ -12,21 +12,22 @@
     </div>
   </div>
 
+  <div class= "bg-secondary bg-opacity-10 vh-100">
+    <%= f.text_field :name, autofocus: true, autocomplete: "name", 
+      class: "w-100 p-2 mt-3 mb-1", placeholder: "Name"
+    %>
 
-  <%= f.text_field :name, autofocus: true, autocomplete: "name", 
-    class: "w-100 p-2 mt-3 mb-1", placeholder: "Name"
-  %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",
+      class: "w-100 p-2 mb-1", placeholder: "Email"
+    %>
 
-  <%= f.email_field :email, autofocus: true, autocomplete: "email",
-    class: "w-100 p-2 mb-1", placeholder: "Email"
-  %>
-
-  <%= f.password_field :password, autocomplete: "new-password",
-    class: "w-100 p-2 mb-1", placeholder: "Password"
-  %>
+    <%= f.password_field :password, autocomplete: "new-password",
+      class: "w-100 p-2 mb-1", placeholder: "Password"
+    %>
 
 
-  <%= f.password_field :password_confirmation, autocomplete: "new-password",
-    class: "w-100 p-2 mb-1", placeholder: "Password Confirmation"
-  %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",
+      class: "w-100 p-2 mb-1", placeholder: "Password Confirmation"
+    %> 
+  </div>
 <% end %>

@@ -25,15 +25,18 @@
   %>
 
   <%= form.number_field :amount, autofocus: true, autocomplete: "amount", 
-    class: "w-100 p-2 mt-3 mb-1", placeholder: "Amount $"
+    class: "w-100 p-2 mt-2 mb-1", placeholder: "Amount $"
   %>
 
-  <div class="p-2 mt-3 bg-white">
+  <div class="p-2 mt-2 bg-white">
     <p> Categories: </p>
     <% @groups.each do |group| %>
+      <% @is_checked = group.id == params[:group_id].to_i %>
       <div class="p-2 d-flex align-items-center">
         <%= form.label group.name, class: "w-25" %>
-        <%= form.check_box :groups, { multiple: true }, group.id, nil %>
+        <%= form.check_box :groups,
+          { multiple: true, checked: @is_checked }, group.id, nil
+        %>
       </div>
     <% end %>
   </div>
