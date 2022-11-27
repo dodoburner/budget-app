@@ -6,9 +6,6 @@ class GroupsController < ApplicationController
     @groups = Group.where(user_id: current_user.id)
   end
 
-  # GET /groups/1 or /groups/1.json
-  def show; end
-
   # GET /groups/new
   def new
     @group = Group.new
@@ -37,7 +34,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to group_url(@group), notice: 'Group was successfully updated.' }
+        format.html { redirect_to groups_url, notice: 'Group was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit, status: :unprocessable_entity }
